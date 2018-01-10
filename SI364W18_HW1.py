@@ -11,13 +11,43 @@
 ## [PROBLEM 1] - 150 points
 ## Below is code for one of the simplest possible Flask applications. Edit the code so that once you run this application locally and go to the URL 'http://localhost:5000/class', you see a page that says "Welcome to SI 364!"
 
-from flask import Flask
+from flask import Flask, request
+import requests, json
 app = Flask(__name__)
 app.debug = True
 
-@app.route('/')
+# Problem 1:
+@app.route('/class')
 def hello_to_you():
-    return 'Hello!'
+    return 'Welcome to SI 364!'
+
+# Problem 2:
+@app.route('/movie/<title>')
+def movie_route(title):
+    r = requests.get('https://itunes.apple.com/search?term=' + title + '&limit=25&parameter=movie').text
+    return r
+
+# Problem 3:
+@app.route('/question')
+def enterData():
+    s = """<!DOCTYPE html>
+<html>
+<body>
+<form action='/result' method='POST'>
+  Enter an integer:<br>
+  <input type='text' name='number' value='4'>
+  <br>
+  <input type='submit' value='Submit'>
+</form>
+</body>
+</html>"""
+    return s
+
+@app.route('/result',methods=['POST', 'GET'])
+def displayData():
+    if request.method == 'POST':
+        sq = int(request.form['number']) * int(request.form['number'])
+        return 'Double your favorite number is {}'.format(sq)
 
 
 if __name__ == '__main__':
