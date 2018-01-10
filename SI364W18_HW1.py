@@ -13,6 +13,7 @@
 
 from flask import Flask, request
 import requests, json
+from PyDictionary import PyDictionary
 app = Flask(__name__)
 app.debug = True
 
@@ -48,6 +49,30 @@ def displayData():
     if request.method == 'POST':
         sq = int(request.form['number']) * int(request.form['number'])
         return 'Double your favorite number is {}'.format(sq)
+
+# Problem 4:
+@app.route('/problem4form',methods=['POST', 'GET'])
+def problem4form():
+    def showResults():
+        dictionary = PyDictionary()
+        synonym_list = []
+        if request.method == 'GET':
+            synonym_list = dictionary.synonym(request.form['word'])
+        return str(synonym_list)
+    s = """<!DOCTYPE html>
+<html>
+<body>
+<form action='/problem4form' method='GET'>
+  Enter a word and we will retrieve its synonyms:<br>
+  <input type='text' name='word' value='happy'>
+  <br>
+  <input type='submit' onsubmit='return showResults()' value='Submit'>
+</form>
+</body>
+</html>"""
+    return s
+
+
 
 
 if __name__ == '__main__':
