@@ -51,18 +51,12 @@ def displayData():
         return 'Double your favorite number is {}'.format(sq)
 
 # Problem 4:
-@app.route('/problem4form',methods=['POST', 'GET'])
+@app.route('/problem4form')
 def problem4form():
-    def showResults():
-        dictionary = PyDictionary()
-        synonym_list = []
-        if request.method == 'GET':
-            synonym_list = dictionary.synonym(request.form['word'])
-        return str(synonym_list)
     s = """<!DOCTYPE html>
 <html>
 <body>
-<form action='/problem4form' method='GET'>
+<form action='/problem4form' method='POST'>
   Enter a word and we will retrieve its synonyms:<br>
   <input type='text' name='word' value='happy'>
   <br>
@@ -71,6 +65,14 @@ def problem4form():
 </body>
 </html>"""
     return s
+
+@app.route('/problem4form',methods=['POST', 'GET'])
+def problem4form_display():
+    dictionary = PyDictionary()
+    synonym_list = []
+    if request.method == 'POST':
+        synonym_list = dictionary.synonym(request.form['word'])
+    return str(synonym_list)
 
 
 
