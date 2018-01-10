@@ -57,8 +57,11 @@ def problem4form():
 <html>
 <body>
 <form action='/problem4form' method='POST'>
-  Enter a word and we will retrieve its synonyms:<br>
-  <input type='text' name='word' value='happy'>
+  Enter a word and fill in the appropriate circle:<br>
+  <input type='text' name='word' value='happy'> <br>
+  <input type='radio' name='definition' value='definition' checked> Definition<br>
+  <input type='radio' name='definition' value='synonym'> Synonyms<br>
+  <input type='radio' name='definition' value='antonym'> Antonyms<br>
   <br>
   <input type='submit' onsubmit='return showResults()' value='Submit'>
 </form>
@@ -70,9 +73,15 @@ def problem4form():
 def problem4form_display():
     dictionary = PyDictionary()
     synonym_list = []
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['definition'] == 'definition':
+    	definition = dictionary.meaning(request.form['word'])
+    	return str(definition)
+    elif request.method == 'POST' and request.form['definition'] == 'synonym':
         synonym_list = dictionary.synonym(request.form['word'])
-    return str(synonym_list)
+        return str(synonym_list)
+    elif request.method == 'POST' and request.form['definition'] == 'antonym':
+    	antonym_list = dictionary.antonym(request.form['word'])
+    	return str(antonym_list)
 
 
 
