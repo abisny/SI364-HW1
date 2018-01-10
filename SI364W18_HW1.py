@@ -53,6 +53,9 @@ def displayData():
 # Problem 4:
 @app.route('/problem4form')
 def problem4form():
+	# This HTML form displays a text box for the user to type in a word and three radio buttons
+	# for the user to decide whether she wants the definition of the word or a list of
+	# synonyms/antonyms. The user then can see the results at the same URL upon submission.
     s = """<!DOCTYPE html>
 <html>
 <body>
