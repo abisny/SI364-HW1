@@ -5,7 +5,7 @@
 #################################
 
 ## List below here, in a comment/comments, the people you worked with on this assignment AND any resources you used to find code (50 point deduction for not doing so). If none, write "None".
-
+# Note: run 'pip install PyDictionary' to run problem 4 code
 
 
 ## [PROBLEM 1] - 150 points
@@ -74,6 +74,7 @@ def problem4form():
 
 @app.route('/problem4form',methods=['POST', 'GET'])
 def problem4form_display():
+	# Note: run 'pip install PyDictionary' to run problem 4 code
     dictionary = PyDictionary()
     synonym_list = []
     if request.method == 'POST' and request.form['definition'] == 'definition':
